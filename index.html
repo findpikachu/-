@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>浮层</title>
+    <style>
+        .wrapper {
+            position: relative;
+            display: inline-block;
+            /*border: 1px solid red;*/
+        }
+        .popover {
+            border: 1px solid red;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            white-space: nowrap;
+            padding: 10px;
+            margin-left: 10px;
+            display: none;
+        }
+        .popover::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            right: 100%;
+            border: 10px solid transparent;
+            border-right-color: red;
+        }
+        .popover::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            right: 100%;
+            border: 10px solid transparent;
+            border-right-color: white;
+            margin-right: -1px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <button id="clickMe">点我</button>
+    <div class="popover">浮层</div>
+</div>
+
+</body>
+<script>
+    let btn = document.querySelector("#clickMe")
+    let popover = document.querySelector(".popover")
+    let wrapper = document.querySelector(".wrapper")
+    let x = 0
+    btn.addEventListener("click",(e) => {
+        ++x
+        popover.style.display = "block"
+        if (x % 2 === 0)
+            popover.style.display = "none"
+
+    })
+    wrapper.addEventListener("click",(e)=> {
+        e.stopPropagation()
+    })
+    document.addEventListener("click",() => {
+        if (popover.style.display === "block")
+            ++x
+        popover.style.display = "none"
+    })
+
+</script>
+</html>
